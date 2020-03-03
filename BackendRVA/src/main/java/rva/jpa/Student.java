@@ -1,0 +1,96 @@
+package rva.jpa;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+
+/**
+ * The persistent class for the "student" database table.
+ * 
+ */
+@Entity
+@Table(name="\"student\"")
+@NamedQuery(name="Student.findAll", query="SELECT s FROM Student s")
+public class Student implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@SequenceGenerator(name="STUDENT_ID_GENERATOR", sequenceName="STUDENT_SEQ",allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="STUDENT_ID_GENERATOR")
+	@Column(name="\"id\"")
+	private int id;
+
+	@Column(name="\"broj_indeksa\"")
+	private String brojIndeksa;
+
+
+	@Column(name="\"ime\"")
+	private String ime;
+
+	@Column(name="\"prezime\"")
+	private String prezime;
+
+	//bi-directional many-to-one association to Grupa
+
+		@ManyToOne
+		@JoinColumn(name = "\"grupa\"")
+		private Grupa grupa;
+		//bi-directional many-to-one association to Projekat
+		@ManyToOne
+		@JoinColumn(name="\"projekat\"")
+		private Projekat projekat;
+
+
+	public Student() {
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getBrojIndeksa() {
+		return this.brojIndeksa;
+	}
+
+	public void setBrojIndeksa(String brojIndeksa) {
+		this.brojIndeksa = brojIndeksa;
+	}
+
+
+	public String getIme() {
+		return this.ime;
+	}
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
+
+	public String getPrezime() {
+		return this.prezime;
+	}
+
+	public void setPrezime(String prezime) {
+		this.prezime = prezime;
+	}
+
+	public Grupa getGrupa() {
+		return this.grupa;
+	}
+
+	public void setGrupa(Grupa grupa) {
+		this.grupa = grupa;
+	}
+
+	public Projekat getProjekat() {
+		return this.projekat;
+	}
+
+	public void setProjekat(Projekat projekat) {
+		this.projekat = projekat;
+	}
+
+}
